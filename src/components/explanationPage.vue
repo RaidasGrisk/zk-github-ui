@@ -28,7 +28,6 @@
     </n-card>
     </n-space>
   </n-space>
-
 </template>
 
 <style>

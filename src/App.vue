@@ -3,6 +3,7 @@ import landingPage from './components/landingPage.vue'
 import transactionPage from './components/transactionPage.vue'
 import explanationPage from './components/explanationPage.vue'
 import issuesSuggestionsPage from './components/issuesSuggestionsPage.vue'
+import dataTable from './components/dataTable.vue'
 
 </script>
 
@@ -13,10 +14,12 @@ import issuesSuggestionsPage from './components/issuesSuggestionsPage.vue'
         <n-layout-header style="padding: 16rem 0rem 16rem 0rem;" class="background centered-text" bordered>
           <landingPage />
         </n-layout-header>
-        <n-layout-content style="padding: 4rem;">
-          <transactionPage />
+        <n-layout-content>
+          <transactionPage style="padding: 8rem 0rem 8rem 0rem;"/>
           <n-divider />
           <explanationPage class="centered-text"/>
+          <n-divider />
+          <dataTable class="centered-text"/>
           <n-divider />
           <issuesSuggestionsPage />
         </n-layout-content>
