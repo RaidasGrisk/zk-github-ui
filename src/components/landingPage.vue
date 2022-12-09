@@ -1,11 +1,90 @@
 <script setup>
 import backgroundAnimation from './backgroundAnimation.vue'
+import { ref } from 'vue'
+
+// load the zk-app
+import { Mina, PublicKey, shutdown, Field, Signature, fetchAccount, isReady } from 'snarkyjs';
+
+// config prep
+const personal_access_token = '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'
+
+const payerKey = ref('')
+const zkAppAddress = 'B62qmQfEB46A4n9xhX9wnQo3PcA32LRxuLongzpsahL2gFHXxC9yRuh'
+const url = 'https://proxy.berkeley.minaexplorer.com/graphql'
+
+const loadApp = async () => {
+
+  await isReady;
+
+  console.log('compiling')
+  const network = Mina.BerkeleyQANet(url)
+  Mina.setActiveInstance(network)
+
+  const { GithubAccountProof } = await import('./index.js');
+  await GithubAccountProof.compile()
+  console.log('APP compiled')
+  let { account, error } = await fetchAccount({
+    publicKey: PublicKey.fromBase58(zkAppAddress)
+  });
+  const zkApp = new GithubAccountProof(PublicKey.fromBase58(zkAppAddress))
+  console.log('THIS IS THE PUB KEY FROM ZKAPP', zkApp.oraclePublicKey.get())
+
+  const response = await fetch('https://zk-oracle-2qz4wkdima-uc.a.run.app/auth', {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      "personal_access_token": `${personal_access_token}`
+    }),
+  });
+  const data = await response.json();
+  console.log(data)
+
+
+  const isValidUser = Field(data.data.isValidUser);
+  const signature = Signature.fromJSON(data.signature);
+
+  const accountKeys = await window.mina.requestAccounts()
+  console.log('fee payer key: ', accountKeys[0])
+
+  let tx = await Mina.transaction(() => {
+    zkApp.verify(isValidUser, signature, PublicKey.fromBase58(accountKeys[0]));
+  });
+  console.log('before prove')
+  await tx.prove();
+  console.log('send transaction...');
+  const { hash } = await window.mina.sendTransaction({
+    transaction: tx.toJSON(),
+    feePayer: {
+      fee: 0.1,
+      memo: 'zk',
+    },
+  });
+
+  if (hash) {
+    console.log(`
+  Success! Update transaction sent.
+
+  Your smart contract state will be updated
+  as soon as the transaction is included in a block:
+  https://berkeley.minaexplorer.com/transaction/${hash}
+  `);
+  }
+
+  shutdown();
+
+
+}
+
+
 </script>
 
 <template>
   <backgroundAnimation />
   <n-space justify="center">
-  <n-card style="z-index: 2; max-width:430px; opacity: 0.95; border-radius: 20px; padding: 1rem" :hoverable="'true'">
+  <n-card style="z-index: 2; max-width:430px; opacity: 0.95; border-radius: 20px; padding: 1rem" :hoverable="true">
     <n-space justify="center">
 
       <n-icon-wrapper :size="64" :border-radius="10">
@@ -35,7 +114,7 @@ import backgroundAnimation from './backgroundAnimation.vue'
   </n-card>
   </n-space>
   <br><br>
-  <n-button strong secondary type="success" style="z-index: 2; transform: scale(1.8);" size="large">
+  <n-button strong secondary type="success" style="z-index: 2; transform: scale(1.8);" size="large" @click="loadApp()">
     <template #icon>
       <n-icon>
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512"><path d="M505.12 19.094c-1.19-5.532-6.658-11-12.207-12.188C460.716 0 435.507 0 410.407 0C307.175 0 245.27 55.203 199.052 128H94.838c-16.348.016-35.557 11.875-42.887 26.484L2.516 253.297A28.4 28.4 0 0 0 0 264a24.009 24.009 0 0 0 24.006 24h103.81l-22.474 22.469c-11.366 11.361-12.996 32.258 0 45.25l50.904 50.906c11.156 11.188 32.156 13.156 45.277 0l22.475-22.469V488a24.009 24.009 0 0 0 24.005 24a28.56 28.56 0 0 0 10.707-2.516l98.729-49.39c14.629-7.297 26.508-26.5 26.508-42.86V312.797C456.544 266.484 511.98 204.39 511.98 101.703c.094-25.203.094-50.406-6.86-82.61zM384.04 168a40 40 0 1 1 40.01-40a40.023 40.023 0 0 1-40.01 40z" fill="currentColor"></path></svg>
