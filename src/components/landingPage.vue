@@ -6,7 +6,7 @@ import { ref } from 'vue'
 import { Mina, PublicKey, shutdown, Field, Signature, fetchAccount, isReady } from 'snarkyjs';
 
 // config prep
-const personal_access_token = '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'
+const personal_access_token = 'github_pat_11AHH75MA05N4vwWrBgD9i_DSkVqNkjsahgfkjashdlkjahsdGquyPHxDoARCUkDJS6N3YNNYyQF5IBy'
 
 const payerKey = ref('')
 const zkAppAddress = 'B62qmQfEB46A4n9xhX9wnQo3PcA32LRxuLongzpsahL2gFHXxC9yRuh'
@@ -52,9 +52,12 @@ const loadApp = async () => {
   let tx = await Mina.transaction(() => {
     zkApp.verify(isValidUser, signature, PublicKey.fromBase58(accountKeys[0]));
   });
+  console.log(tx.toGraphqlQuery())
   console.log('before prove')
+  console.log(tx.toGraphqlQuery())
   await tx.prove();
   console.log('send transaction...');
+  console.log('TX JSON', tx.toJSON())
   const { hash } = await window.mina.sendTransaction({
     transaction: tx.toJSON(),
     feePayer: {
