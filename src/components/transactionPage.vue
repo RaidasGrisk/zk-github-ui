@@ -6,7 +6,6 @@ import { Mina, PublicKey, shutdown, Field, Signature, fetchAccount, isReady } fr
 onMounted(async () => {
   await isReady
   console.log('snarkyJS is ready')
-  const notification = useNotification()
 })
 
 // constants
@@ -14,6 +13,7 @@ const zkAppAddress = 'B62qmQfEB46A4n9xhX9wnQo3PcA32LRxuLongzpsahL2gFHXxC9yRuh'
 const url = 'https://proxy.berkeley.minaexplorer.com/graphql'
 
 // storage refs
+const notification = useNotification()
 const accounts = ref([])
 const personal_access_token = ref('')
 const payerKey = ref('')
