@@ -6,6 +6,7 @@ import { Mina, PublicKey, shutdown, Field, Signature, fetchAccount, isReady } fr
 onMounted(async () => {
   await isReady
   console.log('snarkyJS is ready')
+  const notification = useNotification()
 })
 
 // constants
@@ -13,31 +14,24 @@ const zkAppAddress = 'B62qmQfEB46A4n9xhX9wnQo3PcA32LRxuLongzpsahL2gFHXxC9yRuh'
 const url = 'https://proxy.berkeley.minaexplorer.com/graphql'
 
 // storage refs
-const notification = useNotification()
 const accounts = ref([])
 const personal_access_token = ref('')
 const payerKey = ref('')
 
 // watch helper
-// watch(accounts, (current, previous) => {
-//   console.log('wallet connected', current, previous)
-//   if ((current.length > 0) && (current != previous)) {
-//     notification.info({
-//       content: `Wallet connected! \n\nPublic Key: ${current[0]}`,
-//       duration: 8000,
-//     })
-//   }
-// })
+watch(accounts, (current, previous) => {
+  console.log('wallet connected', current, previous)
+  if ((current.length > 0) && (current != previous)) {
+    notification.info({
+      content: `Wallet connected! \n\nPublic Key: ${current[0]}`,
+      duration: 8000,
+    })
+  }
+})
 
 // functions
 const connectWallet = async () => {
-  if (!accounts.value) {
-      accounts.value = await window.mina.requestAccounts()
-  }
-  notification.success({
-    content: `Wallet connected! \n\nPublic Key: ${accounts.value[0]}`,
-    duration: 8000,
-  })
+  accounts.value = await window.mina.requestAccounts()
 }
 
 const getOracleData = async (personal_access_token) => {
