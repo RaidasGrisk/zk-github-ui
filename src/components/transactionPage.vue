@@ -1,7 +1,12 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import { useNotification } from 'naive-ui'
 import { Mina, PublicKey, shutdown, Field, Signature, fetchAccount, isReady } from 'snarkyjs';
+
+onMounted(async () => {
+  await isReady
+  console.log('snarkyJS is ready')
+})
 
 // constants
 const zkAppAddress = 'B62qmQfEB46A4n9xhX9wnQo3PcA32LRxuLongzpsahL2gFHXxC9yRuh'
