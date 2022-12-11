@@ -19,19 +19,23 @@ const personal_access_token = ref('')
 const payerKey = ref('')
 
 // watch helper
-watch(accounts, (current, previous) => {
-  console.log('wallet connected', current, previous)
-  if ((current.length > 0) && (current != previous)) {
-    notification.info({
-      content: `Wallet connected! \n\nPublic Key: ${current[0]}`,
-      duration: 8000,
-    })
-  }
-})
+// watch(accounts, (current, previous) => {
+//   console.log('wallet connected', current, previous)
+//   if ((current.length > 0) && (current != previous)) {
+//     notification.info({
+//       content: `Wallet connected! \n\nPublic Key: ${current[0]}`,
+//       duration: 8000,
+//     })
+//   }
+// })
 
 // functions
 const connectWallet = async () => {
   accounts.value = await window.mina.requestAccounts()
+  notification.success({
+    content: `Wallet connected! \n\nPublic Key: ${accounts.value[0]}`,
+    duration: 8000,
+  })
 }
 
 const getOracleData = async (personal_access_token) => {
