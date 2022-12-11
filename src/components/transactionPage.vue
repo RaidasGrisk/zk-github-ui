@@ -31,7 +31,9 @@ const payerKey = ref('')
 
 // functions
 const connectWallet = async () => {
-  accounts.value = await window.mina.requestAccounts()
+  if (!accounts.value) {
+      accounts.value = await window.mina.requestAccounts()
+  }
   notification.success({
     content: `Wallet connected! \n\nPublic Key: ${accounts.value[0]}`,
     duration: 8000,
