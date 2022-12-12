@@ -189,7 +189,7 @@ const doTheZkProof = async () => {
         <n-p>For the sake of security, make sure you only grant the read-access to it, and nothing more. <a @click="showModal = true" style="cursor: pointer;" href="javascript:void(0)">Read more...</a></n-p>
         <!-- <n-p>We'll use this token to prove that you are a valid Github user.</n-p> -->
         <n-p>Follow the <a href="https://docs.github.com/en/enterprise-server@3.4/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token" target="_blank">official Github docs</a> to create one.</n-p>
-        <n-p>After you finish the proof, make sure you go to you Github account and <n-text type="warning"> DELETE </n-text> the <n-badge type="success" value="personal_access_token" :max="15" /> we've created and used.</n-p>
+        <n-p>After you finish the proof, make sure you go to you Github account and <n-text type="warning"> DELETE </n-text> the <n-badge type="success" value="personal_access_token" :max="15" /> you've created and used.</n-p>
       </div>
       <br>
 
