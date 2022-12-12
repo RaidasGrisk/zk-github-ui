@@ -1,8 +1,37 @@
 <script setup>
+import { ref } from 'vue'
+
+const showModalExplanation = ref(false)
 </script>
 
 <template>
   <div class="centered-text">
+
+    <div class="centered-text" style="max-width: 25rem; transform: scale(1.3);">
+      <n-tag round :bordered="false" type="primary" style="cursor: pointer;" @click="showModalExplanation = true">
+        <template #icon>
+          <n-icon :size="15">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 384 512"><path d="M202.021 0C122.202 0 70.503 32.703 29.914 91.026c-7.363 10.58-5.093 25.086 5.178 32.874l43.138 32.709c10.373 7.865 25.132 6.026 33.253-4.148c25.049-31.381 43.63-49.449 82.757-49.449c30.764 0 68.816 19.799 68.816 49.631c0 22.552-18.617 34.134-48.993 51.164c-35.423 19.86-82.299 44.576-82.299 106.405V320c0 13.255 10.745 24 24 24h72.471c13.255 0 24-10.745 24-24v-5.773c0-42.86 125.268-44.645 125.268-160.627C377.504 66.256 286.902 0 202.021 0zM192 373.459c-38.196 0-69.271 31.075-69.271 69.271c0 38.195 31.075 69.27 69.271 69.27s69.271-31.075 69.271-69.271s-31.075-69.27-69.271-69.27z" fill="currentColor"></path></svg>
+          </n-icon>
+        </template>
+        Why do we even need it
+      </n-tag>
+    </div>
+
+    <n-modal v-model:show="showModalExplanation">
+      <n-card style="max-width: 45em; padding: 20px;" title="How are these proofs useful?">
+        <n-p></n-p>
+        <n-p></n-p>
+        <n-p></n-p>
+        <n-p></n-p>
+        <n-p></n-p>
+      </n-card>
+    </n-modal>
+    <br>
+    <br>
+
+
+
     <n-tag round :bordered="true" :size="'large'" style="padding: 30px; min-height: 160px;">
       <n-space justify="center" vertical>
         <n-h3>Source code</n-h3>
