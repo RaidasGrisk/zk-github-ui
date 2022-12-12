@@ -72,28 +72,9 @@ const doTheZkProof = async () => {
         duration: 8000,
       })
 
-      const n1 = notification.info({
-        title: `Compiling the smart contract. Stay patient.`,
-        avatar: () => h(NSpin, {
-          size: "small"
-        }),
-      })
-
-      await sleep(1500)
-      const { GithubAccountProof } = await import('./index.js');
-      await GithubAccountProof.compile()
-      console.log('APP compiled')
-      n1.destroy()
-      let { account, error } = await fetchAccount({
-        publicKey: PublicKey.fromBase58(zkAppAddress)
-      });
-      const zkApp = new GithubAccountProof(PublicKey.fromBase58(zkAppAddress))
-      console.log('THIS IS THE PUB KEY FROM ZKAPP', zkApp.oraclePublicKey.get())
-
       // the oracle call and data
-      const n2 = notification.info({
+      const n1 = notification.info({
         title: `Calling the oracle (Github account check)`,
-        duration: 8000,
         avatar: () => h(NSpin, {
           size: "small"
         }),
@@ -102,7 +83,7 @@ const doTheZkProof = async () => {
       const isValidUser = Field(data.data.isValidUser);
       const signature = Signature.fromJSON(data.signature);
 
-      n2.destroy()
+      n1.destroy()
       notification.success({
         title: `Finished the oracle call`,
         duration: 8000,
@@ -116,6 +97,24 @@ const doTheZkProof = async () => {
         isLoading.value = false
         return
       }
+
+
+      const n2 = notification.info({
+        title: `Compiling the smart contract. Stay patient.`,
+        avatar: () => h(NSpin, {
+          size: "small"
+        }),
+      })
+
+      await sleep(1500)
+      const { GithubAccountProof } = await import('./index.js');
+      await GithubAccountProof.compile()
+      console.log('APP compiled')
+      n2.destroy()
+      let { account, error } = await fetchAccount({
+        publicKey: PublicKey.fromBase58(zkAppAddress)
+      });
+      const zkApp = new GithubAccountProof(PublicKey.fromBase58(zkAppAddress))
 
       const accountKeys = await window.mina.requestAccounts()
       console.log('fee payer key: ', accountKeys[0])
