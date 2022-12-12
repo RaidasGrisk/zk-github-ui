@@ -14,7 +14,7 @@ import footer_ from './components/footer_.vue'
     <n-notification-provider>
       <n-layout>
         <n-layout>
-          <n-layout-header style="padding: 16rem 0rem 16rem 0rem;" class="background centered-text" bordered>
+          <n-layout-header style="padding: 16rem 0rem 16rem 0rem;" class="centered-text" bordered>
             <landingPage />
           </n-layout-header>
           <n-layout-content>
