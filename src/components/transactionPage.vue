@@ -18,6 +18,7 @@ const accounts = ref([])
 const personal_access_token = ref('')
 const payerKey = ref('')
 const isLoading = ref(false)
+const showModal = ref(false)
 
 // watch helper
 watch(accounts, (current, previous) => {
@@ -185,7 +186,7 @@ const doTheZkProof = async () => {
       <div class="centered-text" style="max-width: 25rem">
         <n-h1>Alright, let's do the proof!</n-h1>
         <n-p>To prove it, you're going to need to go to your Github account and create a temporary <n-badge type="success" value="personal_access_token" :max="15" />.</n-p>
-        <n-p>For the sake of security, make sure you only grant the read-access to it, and nothing more.</n-p>
+        <n-p>For the sake of security, make sure you only grant the read-access to it, and nothing more. <a @click="showModal = true" style="cursor: pointer;" href="javascript:void(0)">Read more...</a></n-p>
         <!-- <n-p>We'll use this token to prove that you are a valid Github user.</n-p> -->
         <n-p>Follow the <a href="https://docs.github.com/en/enterprise-server@3.4/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token" target="_blank">official Github docs</a> to create one.</n-p>
         <n-p>After you finish the proof, make sure you go to you Github account and <n-text type="warning"> DELETE </n-text> the <n-badge type="success" value="personal_access_token" :max="15" /> we've created and used.</n-p>
@@ -225,6 +226,16 @@ const doTheZkProof = async () => {
         </n-button>
       </n-space>
     </n-space>
+
+    <n-modal v-model:show="showModal">
+      <n-card style="max-width: 45em; padding: 20px;" title="How is your personal_access_token going to be used?">
+        <n-p><b>1:</b> make sure you assign the least possible rights to the token created. For the app to work, it doesn't need any rights whatsoever. Also delete the token afterwards.</n-p>
+        <n-p><b>2:</b> the app will NOT interact with your profile/repositories in any way, except will do a single Github API call that returns user info only.</n-p>
+        <n-p><b>3:</b> <a href="https://docs.github.com/en/rest/users/users?apiVersion=2022-11-28" target="_blank">Here's the endpoint</a>, please read about it carefully.</n-p>
+        <n-p><b>4:</b> During the proof, the only thing the app will check is if the JSON returned by the API endpoint includes a field "id". That is it.</n-p>
+        <n-p><b>5:</b> To learn even more, check and review the <a href="https://github.com/RaidasGrisk/zk-github-oracle" target="_blank">oracle code repository</a>.</n-p>
+      </n-card>
+    </n-modal>
 
     </n-space>
   </n-space>
