@@ -5,21 +5,32 @@ import axios from 'axios'
 const data = ref([])
 const columns = ref([
   {
-    title: 'blockHeight',
+    title: 'Block',
     key: 'blockHeight'
   },
   {
-    title: 'dateTime',
+    title: 'Date',
     key: 'dateTime'
   },
   {
-    title: 'hash',
-    key: 'hash'
+    title: 'publickKey',
+    key: 'zkappCommand.feePayer.body.publicKey',
+    render(row) {
+      let row_ = row.zkappCommand.feePayer.body.publicKey
+      let publicKey_ = row_.slice(0, 5) + ' ... ' + row_.slice(row_.length - 5)
+      return publicKey_
+    }
   },
   {
-    title: 'publickKey',
-    key: 'zkappCommand.feePayer.body.publicKey'
+    title: 'hash',
+    key: 'hash',
+    render(row) {
+      let row_ = row['hash']
+      let hash_ = row_.slice(0, 5) + ' ... ' + row_.slice(row_.length - 5)
+      return hash_
+    }
   },
+
 ])
 onMounted( async () => {
 
@@ -64,7 +75,7 @@ onMounted( async () => {
   });
 
 
-  data.value = uniqueArray
+  data.value = uniqueArray.reverse().slice(0, 10);
 })
 
 </script>
@@ -72,7 +83,7 @@ onMounted( async () => {
 <template>
   <n-space justify="center">
     <n-space vertical>
-      <n-h1>Here's all the accounts <br> that provided a proof:</n-h1>
+      <n-h1>Latest proofs 📜</n-h1>
       <br>
       <n-spin size="large" v-if="data.length == 0"/>
       <n-data-table

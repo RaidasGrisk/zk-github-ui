@@ -18,18 +18,20 @@ import checkIfhasAProof from './components/checkIfhasAProof.vue'
             <landingPage />
           </n-layout-header>
           <n-layout-content>
-            <transactionPage style="padding: 8rem 0rem 8rem 0rem;"/>
+            <transactionPage style="padding: 6rem 0rem 6rem 0rem;"/>
             <n-divider />
-            <checkIfhasAProof style="padding: 8rem 0rem 8rem 0rem;" />
+            <checkIfhasAProof style="padding: 6rem 0rem 6rem 0rem;" />
             <n-divider />
-            <explanationPage class="centered-text"/>
-            <n-divider />
-            <dataTable class="centered-text"/>
-            <n-divider />
-            <issuesSuggestionsPage />
+            <!-- <explanationPage class="centered-text"/> -->
+            <!-- <n-divider /> -->
+            <dataTable class="centered-text" style="padding: 6rem 0rem 6rem 0rem;" />
+            <!-- <n-divider /> -->
+            <!-- <issuesSuggestionsPage /> -->
           </n-layout-content>
-          <n-layout-footer style="padding: 2rem;" bordered>
-            Chengfu Road
+          <n-layout-footer style="padding: 4rem 1rem 4rem 1rem;" bordered>
+            <div class="centered-text">
+              Footer
+            </div>
           </n-layout-footer>
         </n-layout>
       </n-layout>
