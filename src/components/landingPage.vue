@@ -1,5 +1,5 @@
 <script setup>
-import backgroundAnimation from './backgroundAnimation.vue'
+// import backgroundAnimation from './backgroundAnimation.vue'
 
 const goto = (refName) => {
   document.getElementById('target-id').scrollIntoView(
@@ -10,7 +10,32 @@ const goto = (refName) => {
 </script>
 
 <template>
-  <backgroundAnimation />
+
+  <!-- This is bullshit but vite does not build it properly, so cannot put this into a seprate file WTF? -->
+  <!-- Not this is a mess, but oh well :D -->
+  <div class="background">
+     <span></span>
+     <span></span>
+     <span></span>
+     <span></span>
+     <span></span>
+     <span></span>
+     <span></span>
+     <span></span>
+     <span></span>
+     <span></span>
+     <span></span>
+     <span></span>
+     <span></span>
+     <span></span>
+     <span></span>
+     <span></span>
+     <span></span>
+     <span></span>
+     <span></span>
+     <span></span>
+  </div>
+
   <n-space justify="center">
   <n-card style="z-index: 2; max-width:430px; opacity: 0.95; border-radius: 20px; padding: 1rem" :hoverable="true">
     <n-space justify="center">
@@ -36,15 +61,7 @@ const goto = (refName) => {
     </n-space>
     <n-divider style="width: 20%; display: block; margin-left: auto; margin-right: auto; text-align: center;"/>
     <n-h1 style="margin: 0px;">Github account proof on</n-h1>
-    <n-gradient-text
-      :gradient="{
-        deg: 90,
-        from: '#2080f0',
-        to: '#5c2ab2'
-      }"
-    >
-      MINA
-    </n-gradient-text>
+    <n-h1 style="margin: 0px; background: -webkit-linear-gradient(180deg, #2080f0, #5c2ab2); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">MINA</n-h1>
     <n-divider style="width: 40%; display: block; margin-left: auto; margin-right: auto; text-align: center;"/>
     <n-badge :max="15" type="info">
       zk proof that mina account is owned by github user
@@ -69,7 +86,7 @@ const goto = (refName) => {
   </n-button>
 </template>
 
-<style>
+<style scoped>
 
 .blob {
 	transform: scale(1);
@@ -92,6 +109,219 @@ const goto = (refName) => {
 
 .n-gradient-text {
   font-size: 30px;
+}
+
+/* https://wweb.dev/resources/animated-css-background-generator/ */
+/* 0f0f10 */
+/* #5da3e5 */
+/* #5c2ab2 */
+@keyframes move {
+    100% {
+        transform: translate3d(0, 0, 1px) rotate(360deg);
+    }
+}
+
+.background {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background: #0f0f10;
+    overflow: hidden;
+}
+
+.background span {
+    width: 50vmin;
+    height: 50vmin;
+    border-radius: 50vmin;
+    backface-visibility: hidden;
+    position: absolute;
+    animation: move;
+    animation-duration: 19;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+.background span:nth-child(0) {
+    color: #5c4ab2;
+    top: 15%;
+    left: 89%;
+    animation-duration: 148s;
+    animation-delay: -197s;
+    transform-origin: 25vw -21vh;
+    box-shadow: -100vmin 0 13.008939435379705vmin currentColor;
+}
+.background span:nth-child(1) {
+    color: #5da3e5;
+    top: 59%;
+    left: 29%;
+    animation-duration: 119s;
+    animation-delay: -232s;
+    transform-origin: 3vw 11vh;
+    box-shadow: 100vmin 0 13.373206602781277vmin currentColor;
+}
+.background span:nth-child(2) {
+    color: #5da3e5;
+    top: 16%;
+    left: 95%;
+    animation-duration: 293s;
+    animation-delay: -302s;
+    transform-origin: 17vw 22vh;
+    box-shadow: 100vmin 0 12.743094923955482vmin currentColor;
+}
+.background span:nth-child(3) {
+    color: #5da3e5;
+    top: 71%;
+    left: 17%;
+    animation-duration: 61s;
+    animation-delay: -73s;
+    transform-origin: 22vw 2vh;
+    box-shadow: -100vmin 0 13.195742701416298vmin currentColor;
+}
+.background span:nth-child(4) {
+    color: #5c4ab2;
+    top: 67%;
+    left: 55%;
+    animation-duration: 71s;
+    animation-delay: -58s;
+    transform-origin: 11vw 23vh;
+    box-shadow: 100vmin 0 12.938351895603533vmin currentColor;
+}
+.background span:nth-child(5) {
+    color: #5c4ab2;
+    top: 82%;
+    left: 32%;
+    animation-duration: 312s;
+    animation-delay: -58s;
+    transform-origin: 4vw -3vh;
+    box-shadow: 100vmin 0 12.69227430949013vmin currentColor;
+}
+.background span:nth-child(6) {
+    color: #5c4ab2;
+    top: 70%;
+    left: 86%;
+    animation-duration: 266s;
+    animation-delay: -86s;
+    transform-origin: -9vw 6vh;
+    box-shadow: 100vmin 0 13.468821425833298vmin currentColor;
+}
+.background span:nth-child(7) {
+    color: #5c4ab2;
+    top: 70%;
+    left: 21%;
+    animation-duration: 216s;
+    animation-delay: -188s;
+    transform-origin: -14vw 20vh;
+    box-shadow: 100vmin 0 12.806214046993304vmin currentColor;
+}
+.background span:nth-child(8) {
+    color: #5c4ab2;
+    top: 47%;
+    left: 68%;
+    animation-duration: 314s;
+    animation-delay: -198s;
+    transform-origin: -7vw 19vh;
+    box-shadow: -100vmin 0 13.415310433521213vmin currentColor;
+}
+.background span:nth-child(9) {
+    color: #5c4ab2;
+    top: 37%;
+    left: 70%;
+    animation-duration: 58s;
+    animation-delay: -52s;
+    transform-origin: 17vw 12vh;
+    box-shadow: -100vmin 0 12.523760725690163vmin currentColor;
+}
+.background span:nth-child(10) {
+    color: #5da3e5;
+    top: 5%;
+    left: 95%;
+    animation-duration: 13s;
+    animation-delay: -193s;
+    transform-origin: 7vw 14vh;
+    box-shadow: 100vmin 0 12.708218136493102vmin currentColor;
+}
+.background span:nth-child(11) {
+    color: #5c4ab2;
+    top: 16%;
+    left: 65%;
+    animation-duration: 168s;
+    animation-delay: -87s;
+    transform-origin: -1vw 5vh;
+    box-shadow: 100vmin 0 13.32342865458087vmin currentColor;
+}
+.background span:nth-child(12) {
+    color: #5da3e5;
+    top: 95%;
+    left: 56%;
+    animation-duration: 85s;
+    animation-delay: -219s;
+    transform-origin: -5vw 7vh;
+    box-shadow: -100vmin 0 13.41338207533578vmin currentColor;
+}
+.background span:nth-child(13) {
+    color: #5da3e5;
+    top: 30%;
+    left: 6%;
+    animation-duration: 295s;
+    animation-delay: -127s;
+    transform-origin: -19vw -16vh;
+    box-shadow: -100vmin 0 13.132496307279403vmin currentColor;
+}
+.background span:nth-child(14) {
+    color: #5c4ab2;
+    top: 84%;
+    left: 22%;
+    animation-duration: 204s;
+    animation-delay: -298s;
+    transform-origin: -21vw -22vh;
+    box-shadow: 100vmin 0 13.016673877802587vmin currentColor;
+}
+.background span:nth-child(15) {
+    color: #5c4ab2;
+    top: 70%;
+    left: 64%;
+    animation-duration: 167s;
+    animation-delay: -202s;
+    transform-origin: -19vw -4vh;
+    box-shadow: 100vmin 0 13.075991022849513vmin currentColor;
+}
+.background span:nth-child(16) {
+    color: #5c4ab2;
+    top: 4%;
+    left: 46%;
+    animation-duration: 243s;
+    animation-delay: -88s;
+    transform-origin: 4vw 11vh;
+    box-shadow: -100vmin 0 13.280484783469312vmin currentColor;
+}
+.background span:nth-child(17) {
+    color: #5c4ab2;
+    top: 78%;
+    left: 11%;
+    animation-duration: 282s;
+    animation-delay: -156s;
+    transform-origin: 0vw -23vh;
+    box-shadow: 100vmin 0 12.952020532805076vmin currentColor;
+}
+.background span:nth-child(18) {
+    color: #5da3e5;
+    top: 16%;
+    left: 42%;
+    animation-duration: 315s;
+    animation-delay: -292s;
+    transform-origin: 15vw -13vh;
+    box-shadow: 100vmin 0 13.228555595167279vmin currentColor;
+}
+.background span:nth-child(19) {
+    color: #5c4ab2;
+    top: 82%;
+    left: 85%;
+    animation-duration: 225s;
+    animation-delay: -173s;
+    transform-origin: -12vw -7vh;
+    box-shadow: 100vmin 0 12.820671709978743vmin currentColor;
 }
 
 </style>
