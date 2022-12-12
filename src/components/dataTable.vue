@@ -4,8 +4,10 @@ import { ref, onMounted, h } from 'vue'
 import axios from 'axios'
 
 const isLoading = ref(false)
-const numberAnimationInstRef = ref(null)
-const data = ref([])
+const numberAnimationInstRef1 = ref(null)
+const numberAnimationInstRef2 = ref(null)
+const data = ref([]) // raw data
+const data_ = ref([]) // data for table
 const columns = ref([
   {
     title: 'Block',
@@ -93,9 +95,11 @@ const getData = async () => {
 
   // set data variable value
   data.value = uniqueArray
+  data_.value = uniqueArray.reverse().slice(0, 10)
 
   // play the animation
-  numberAnimationInstRef.value.play()
+  numberAnimationInstRef1.value.play()
+  numberAnimationInstRef2.value.play()
 }
 
 onMounted( async () => {
@@ -113,17 +117,19 @@ onMounted( async () => {
       </n-button>
       <br>
       <n-space justify="center" horizontal>
-        <n-statistic label="Total number of proofs">
+        <n-statistic label="Total number of proofs" tabular-nums>
           <n-number-animation
-            ref="numberAnimationInstRef"
+            ref="numberAnimationInstRef1"
+            show-separator
             :from="0"
             :to="data.length"
             :active="true"
           />
         </n-statistic>
-        <n-statistic label="Unique addresses">
+        <n-statistic label="Unique addresses" tabular-nums>
           <n-number-animation
-            ref="numberAnimationInstRef"
+            ref="numberAnimationInstRef2"
+            show-separator
             :from="0"
             :to="new Set(data.map(a => a.zkappCommand.feePayer.body.publicKey)).size"
             :active="true"
@@ -134,7 +140,7 @@ onMounted( async () => {
       <n-data-table
         style='max-width: 50rem;'
         :columns="columns"
-        :data="data.reverse().slice(0, 10)"
+        :data="data_"
         :bordered="true"
         :loading="isLoading"
       />
