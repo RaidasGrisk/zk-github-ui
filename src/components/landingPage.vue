@@ -61,7 +61,7 @@ const goto = (refName) => {
     </n-space>
     <n-divider style="width: 20%; display: block; margin-left: auto; margin-right: auto; text-align: center;"/>
     <n-h1 style="margin: 0px;">Github account proof on</n-h1>
-    <n-h1 style="margin: 0px; background: -webkit-linear-gradient(180deg, #2080f0, #5c2ab2); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">MINA</n-h1>
+    <span style="font-size: 30px; font-weight: bold; margin: 0px; background: -webkit-linear-gradient(180deg, #2080f0, #5c2ab2); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Mina</span>
     <n-divider style="width: 40%; display: block; margin-left: auto; margin-right: auto; text-align: center;"/>
     <n-badge :max="15" type="info">
       zk proof that mina account is owned by github user
