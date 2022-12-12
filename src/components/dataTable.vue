@@ -4,6 +4,7 @@ import { ref, onMounted, h } from 'vue'
 import axios from 'axios'
 
 const isLoading = ref(false)
+const numberAnimationInstRef = ref(null)
 const data = ref([])
 const columns = ref([
   {
@@ -91,7 +92,10 @@ const getData = async () => {
   });
 
   // set data variable value
-  data.value = uniqueArray.reverse().slice(0, 10);
+  data.value = uniqueArray
+
+  // play the animation
+  numberAnimationInstRef.value.play()
 }
 
 onMounted( async () => {
@@ -104,20 +108,38 @@ onMounted( async () => {
   <n-space justify="center">
     <n-space vertical>
       <n-h1>Latest proofs 📜</n-h1>
-      <br>
       <n-button tertiary type="primary" @click="getData()" :loading="isLoading">
         Refresh
       </n-button>
+      <br>
+      <n-space justify="center" horizontal>
+        <n-statistic label="Total number of proofs">
+          <n-number-animation
+            ref="numberAnimationInstRef"
+            :from="0"
+            :to="data.length"
+            :active="true"
+          />
+        </n-statistic>
+        <n-statistic label="Unique addresses">
+          <n-number-animation
+            ref="numberAnimationInstRef"
+            :from="0"
+            :to="new Set(data.map(a => a.zkappCommand.feePayer.body.publicKey)).size"
+            :active="true"
+          />
+        </n-statistic>
+      </n-space>
+      <br>
       <n-data-table
         style='max-width: 50rem;'
         :columns="columns"
-        :data="data"
+        :data="data.reverse().slice(0, 10)"
         :bordered="true"
         :loading="isLoading"
       />
     </n-space>
   </n-space>
-
 </template>
 
 <style>
