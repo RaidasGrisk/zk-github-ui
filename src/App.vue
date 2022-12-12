@@ -1,5 +1,5 @@
 <script setup>
-// import landingPage from './components/landingPage.vue'
+import landingPage from './components/landingPage.vue'
 import transactionPage from './components/transactionPage.vue'
 import explanationPage from './components/explanationPage.vue'
 import issuesSuggestionsPage from './components/issuesSuggestionsPage.vue'
@@ -15,7 +15,7 @@ import checkIfhasAProof from './components/checkIfhasAProof.vue'
       <n-layout>
         <n-layout>
           <n-layout-header style="padding: 16rem 0rem 16rem 0rem;" class="background centered-text" bordered>
-            <!-- <landingPage /> -->
+            <landingPage />
           </n-layout-header>
           <n-layout-content>
             <transactionPage style="padding: 8rem 0rem 8rem 0rem;"/>
