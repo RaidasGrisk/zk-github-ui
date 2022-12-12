@@ -1,5 +1,6 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import { NText } from 'naive-ui'
+import { ref, onMounted, h } from 'vue'
 import axios from 'axios'
 
 const data = ref([])
@@ -18,7 +19,12 @@ const columns = ref([
     render(row) {
       let row_ = row.zkappCommand.feePayer.body.publicKey
       let publicKey_ = row_.slice(0, 5) + ' ... ' + row_.slice(row_.length - 5)
-      return publicKey_
+      return h(
+        'a', {
+          href: `https://berkeley.minaexplorer.com/wallet/${row_}`,
+          target: '_blank'
+        }, publicKey_
+      )
     }
   },
   {
@@ -27,12 +33,20 @@ const columns = ref([
     render(row) {
       let row_ = row['hash']
       let hash_ = row_.slice(0, 5) + ' ... ' + row_.slice(row_.length - 5)
-      return hash_
+      return h(
+        'a', {
+          href: `https://berkeley.minaexplorer.com/transaction/${row['hash']}`,
+          target: '_blank'
+        }, hash_
+      )
     }
   },
-
 ])
-onMounted( async () => {
+
+const getData = async () => {
+
+  // this is to turn  on the spinner (not a good solution, but oh well)
+  data.value = []
 
   // config
   const url = 'https://berkeley.graphql.minaexplorer.com/'
@@ -74,8 +88,12 @@ onMounted( async () => {
     });
   });
 
-
+  // set data variable value
   data.value = uniqueArray.reverse().slice(0, 10);
+}
+
+onMounted( async () => {
+  getData()
 })
 
 </script>
@@ -85,7 +103,9 @@ onMounted( async () => {
     <n-space vertical>
       <n-h1>Latest proofs 📜</n-h1>
       <br>
-      <n-spin size="large" v-if="data.length == 0"/>
+      <n-button tertiary type="primary" @click="getData()" :loading="data.length == 0">
+        Refresh
+      </n-button>
       <n-data-table
         style='max-width: 50rem;'
         :columns="columns"

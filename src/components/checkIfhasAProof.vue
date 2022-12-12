@@ -45,7 +45,9 @@ const checkAddress = async (zkAppAddress, publicKey) => {
 <template>
   <n-space justify="center">
     <n-space vertical>
-      <n-h2>Check if account provided a proof 🧐</n-h2>
+      <div class="centered-text" style="max-width: 25rem">
+        <n-h1>Check if account provided a proof 🧐</n-h1>
+      </div>
 
       <n-tooltip trigger="hover" placement="left">
         <template #trigger>
@@ -99,7 +101,7 @@ const checkAddress = async (zkAppAddress, publicKey) => {
       <n-modal v-model:show="showModal">
         <n-card style="max-width: 25em;"
         >
-        {{ data.data.zkapps.at(-1) }}
+        {{ data.data.zkapps.reduce((proof, block) => proof.blockHeight > block.blockHeight ? proof : block) }}
         </n-card>
       </n-modal>
 

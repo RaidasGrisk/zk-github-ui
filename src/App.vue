@@ -5,7 +5,7 @@ import explanationPage from './components/explanationPage.vue'
 import issuesSuggestionsPage from './components/issuesSuggestionsPage.vue'
 import dataTable from './components/dataTable.vue'
 import checkIfhasAProof from './components/checkIfhasAProof.vue'
-
+import footer_ from './components/footer_.vue'
 
 </script>
 
@@ -18,9 +18,9 @@ import checkIfhasAProof from './components/checkIfhasAProof.vue'
             <landingPage />
           </n-layout-header>
           <n-layout-content>
-            <transactionPage style="padding: 6rem 0rem 6rem 0rem;"/>
+            <transactionPage style="padding: 4rem 0rem 4rem 0rem;"/>
             <n-divider />
-            <checkIfhasAProof style="padding: 6rem 0rem 6rem 0rem;" />
+            <checkIfhasAProof style="padding: 4rem 0rem 4rem 0rem;" />
             <n-divider />
             <!-- <explanationPage class="centered-text"/> -->
             <!-- <n-divider /> -->
@@ -29,9 +29,7 @@ import checkIfhasAProof from './components/checkIfhasAProof.vue'
             <!-- <issuesSuggestionsPage /> -->
           </n-layout-content>
           <n-layout-footer style="padding: 4rem 1rem 4rem 1rem;" bordered>
-            <div class="centered-text">
-              Footer
-            </div>
+            <footer_ />
           </n-layout-footer>
         </n-layout>
       </n-layout>

@@ -1,6 +1,6 @@
 <script setup>
-import { ref, watch, onMounted } from 'vue'
-import { useNotification } from 'naive-ui'
+import { ref, watch, onMounted, h } from 'vue'
+import { useNotification, NSpin } from 'naive-ui'
 import { Mina, PublicKey, shutdown, Field, Signature, fetchAccount, isReady } from 'snarkyjs';
 
 onMounted(async () => {
@@ -23,7 +23,8 @@ watch(accounts, (current, previous) => {
   console.log('wallet connected', current, previous)
   if ((current.length > 0) && (current != previous)) {
     notification.info({
-      content: `Wallet connected! \n\nPublic Key: ${current[0]}`,
+      title: `Wallet connected!`,
+      content: `Public Key: ${current[0]}`,
       duration: 8000,
     })
   }
@@ -50,6 +51,10 @@ const getOracleData = async (personal_access_token) => {
   return data
 }
 
+const sleep = (ms) => {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 
 const doTheZkProof = async () => {
 
@@ -60,15 +65,19 @@ const doTheZkProof = async () => {
   Mina.setActiveInstance(network)
 
   notification.success({
-    content: `Connected to Berkeley`,
+    title: `Connected to Berkeley`,
     duration: 8000,
   })
 
   notification.info({
-    content: `Compiling the smart contract. Stay patient.`,
+    title: `Compiling the smart contract. Stay patient.`,
     duration: 8000,
+    avatar: () => h(NSpin, {
+      size: "small"
+    }),
   })
 
+  await sleep(1500)
   const { GithubAccountProof } = await import('./index.js');
   await GithubAccountProof.compile()
   console.log('APP compiled')
@@ -79,20 +88,30 @@ const doTheZkProof = async () => {
   console.log('THIS IS THE PUB KEY FROM ZKAPP', zkApp.oraclePublicKey.get())
 
   // the oracle call and data
-  notification.info({
-    content: `Calling the oracle (off-chain data)`,
+  const n = notification.info({
+    title: `Calling the oracle (Github account check)`,
     duration: 8000,
+    avatar: () => h(NSpin, {
+      size: "small"
+    }),
   })
   const data = await getOracleData(personal_access_token.value)
   const isValidUser = Field(data.data.isValidUser);
   const signature = Signature.fromJSON(data.signature);
 
+  n.destroy()
   notification.success({
-    content: `Finished the oracle call ${data.data}`,
+    title: `Finished the oracle call`,
     duration: 8000,
   })
 
-  if (!data.data.isValidUser) { return }
+  if (data.data.isValidUser == '0') {
+    notification.error({
+      title: 'Something is wrong with personal_access_token',
+      description: 'Github does not recognise the token provided',
+    })
+    return
+  }
 
   const accountKeys = await window.mina.requestAccounts()
   console.log('fee payer key: ', accountKeys[0])
@@ -103,14 +122,18 @@ const doTheZkProof = async () => {
   // console.log(tx.toGraphqlQuery())
   console.log('before prove')
   notification.info({
-    content: `Creating the proof`,
+    title: `Creating the proof`,
     duration: 8000,
+    avatar: () => h(NSpin, {
+      size: "small"
+    }),
   })
+  await sleep(1500)
   await tx.prove();
 
   notification.success({
-    content: `Proof done! Ready to send the transaction`,
-    duration: 8000,
+    title: `Proof done! Ready to send the transaction`,
+    duration: 16000,
   })
   console.log('send transaction...');
   console.log('TX JSON', tx.toJSON())
@@ -132,7 +155,8 @@ const doTheZkProof = async () => {
     `)
 
     notification.success({
-      content: `Success! Update transaction sent.\nYour smart contract state will be updated as soon as the transaction is included in a block:\n https://berkeley.minaexplorer.com/transaction/${hash}`,
+      title: `Success! Update transaction sent.`,
+      content: `Your smart contract state will be updated as soon as the transaction is included in a block:\n https://berkeley.minaexplorer.com/transaction/${hash}`
     })
   }
 

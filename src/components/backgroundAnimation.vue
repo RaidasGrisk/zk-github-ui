@@ -2,7 +2,15 @@
 </script>
 
 <template>
-  <span v-for="item in Array.from(Array(40).keys())" class="backround-bubble" />
+  <span class="backround-bubble" />
+  <span class="backround-bubble" />
+  <span class="backround-bubble" />
+  <span class="backround-bubble" />
+  <span class="backround-bubble" />
+  <span class="backround-bubble" />
+  <span class="backround-bubble" />
+  <span class="backround-bubble" />
+  <span class="backround-bubble" />
 </template>
 
 <style>
