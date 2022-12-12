@@ -20,17 +20,23 @@ const showModalExplanation = ref(false)
 
     <n-modal v-model:show="showModalExplanation">
       <n-card style="max-width: 45em; padding: 20px;" title="How are these proofs useful?">
-        <n-p></n-p>
-        <n-p></n-p>
-        <n-p></n-p>
-        <n-p></n-p>
-        <n-p></n-p>
+        <n-p>
+          The ability to prove unique identity, while maintaining privacy, is beneficial to all kinds of dapps.
+          For example: proper voting where a person can only vote once; bridging real-word identity on chain for complience or similar reasons, etc.
+        </n-p>
+        <n-divider />
+        <n-p>
+          An example of <b>the end game</b> of such proofs, is connecting real word ID (passport/ID card) to an address (or multiple addresses) while
+          preserving the user's freedom to reveal specific data to selected parties. Or not reveal anything at all, simply proving that you are a real human in possesion of real-word ID and revealing no details at all.
+        </n-p>
+        <n-p>
+          The end game is not yet in sight, as the governments (the party that holds and defines the way we ID ourselves) do not offer proper infrastructure to build such dapps.
+          Fortunately, Github can be used as a decent (nearly perfect?) proxy of an ID-issuer 🤔. It provides a user with one-time-use token (if you delete it after use), that can be used to ID a wallet address. That way, achieving a very similar outcome.
+        </n-p>
       </n-card>
     </n-modal>
     <br>
     <br>
-
-
 
     <n-tag round :bordered="true" :size="'large'" style="padding: 30px; min-height: 160px;">
       <n-space justify="center" vertical>
