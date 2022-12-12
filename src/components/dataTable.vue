@@ -3,6 +3,7 @@ import { NText } from 'naive-ui'
 import { ref, onMounted, h } from 'vue'
 import axios from 'axios'
 
+const isLoading = ref(false)
 const data = ref([])
 const columns = ref([
   {
@@ -45,8 +46,7 @@ const columns = ref([
 
 const getData = async () => {
 
-  // this is to turn  on the spinner (not a good solution, but oh well)
-  data.value = []
+  isLoading.value = true
 
   // config
   const url = 'https://berkeley.graphql.minaexplorer.com/'
@@ -80,6 +80,8 @@ const getData = async () => {
   })
   const response_ = await response.json()
 
+  isLoading.value = false
+
   // filter duplicates
   const uniqueArray = response_.data.zkapps.filter((value, index) => {
     const _value = JSON.stringify(value);
@@ -103,7 +105,7 @@ onMounted( async () => {
     <n-space vertical>
       <n-h1>Latest proofs 📜</n-h1>
       <br>
-      <n-button tertiary type="primary" @click="getData()" :loading="data.length == 0">
+      <n-button tertiary type="primary" @click="getData()" :loading="isLoading">
         Refresh
       </n-button>
       <n-data-table
@@ -111,6 +113,7 @@ onMounted( async () => {
         :columns="columns"
         :data="data"
         :bordered="true"
+        :loading="isLoading"
       />
     </n-space>
   </n-space>
