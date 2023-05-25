@@ -4,7 +4,7 @@ import axios from 'axios'
 
 // constants
 const url = 'https://berkeley.graphql.minaexplorer.com/'
-const zkAppAddress = 'B62qmQfEB46A4n9xhX9wnQo3PcA32LRxuLongzpsahL2gFHXxC9yRuh'
+const zkAppAddress = 'B62qq1tktxLsPAvL3QytnyqMCnUvn9NrUuXGJgPGAhQUacdKzupE2Kp'
 
 // refs
 const data = ref([])
@@ -82,7 +82,7 @@ const checkAddress = async (zkAppAddress, publicKey) => {
           </n-icon>
         </n-icon-wrapper>
 
-        <n-icon-wrapper :size="46" :border-radius="10" v-else>
+        <n-icon-wrapper :size="46" :border-radius="10" color="#d03a52" v-else>
           <n-icon :size="28">
             <svg viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
               <defs></defs>

@@ -1,15 +1,14 @@
 <script setup>
 import { ref, watch, onMounted, h } from 'vue'
 import { useNotification, NSpin } from 'naive-ui'
-import { Mina, PublicKey, shutdown, Field, Signature, fetchAccount, isReady } from 'snarkyjs';
+import { Mina, PublicKey, shutdown, Field, Signature, fetchAccount } from 'snarkyjs';
 
 onMounted(async () => {
-  await isReady
-  console.log('snarkyJS is ready')
+  console.log('Mounted')
 })
 
 // constants
-const zkAppAddress = 'B62qmQfEB46A4n9xhX9wnQo3PcA32LRxuLongzpsahL2gFHXxC9yRuh'
+const zkAppAddress = 'B62qq1tktxLsPAvL3QytnyqMCnUvn9NrUuXGJgPGAhQUacdKzupE2Kp'
 const url = 'https://proxy.berkeley.minaexplorer.com/graphql'
 
 // storage refs
@@ -108,7 +107,7 @@ const doTheZkProof = async () => {
       })
 
       await sleep(1500)
-      const { GithubAccountProof } = await import('./index.js');
+      const { GithubAccountProof } = await import('./index.js')
       await GithubAccountProof.compile()
       console.log('APP compiled')
       n2.destroy()
@@ -141,38 +140,35 @@ const doTheZkProof = async () => {
       })
       console.log('send transaction...');
       console.log('TX JSON', tx.toJSON())
-      const { hash } = await window.mina.sendTransaction({
-        transaction: tx.toJSON(),
-        feePayer: {
-          fee: 0.1,
-          memo: 'zk',
-        },
-      });
+      try {
+        const { hash } = await window.mina.sendTransaction({
+          transaction: tx.toJSON(),
+          feePayer: {
+            fee: '',
+            memo: 'zk-github-account-proof',
+          },
+        });
+        console.log('TX hash: ', hash)
 
-      if (hash) {
-        console.log(`
-        Success! Update transaction sent.
+        if (hash) {
+          notification.success({
+            title: `Success! Transaction sent.`,
+            content: `Your proof will be finished as soon as the transaction is included in a block:\n https://berkeley.minaexplorer.com/transaction/${hash}`
+          })
+        }
+        isLoading.value = false
 
-        Your smart contract state will be updated
-        as soon as the transaction is included in a block:
-        https://berkeley.minaexplorer.com/transaction/${hash}
-        `)
-
-        notification.success({
-          title: `Success! Transaction sent.`,
-          content: `Your proof will be finished as soon as the transaction is included in a block:\n https://berkeley.minaexplorer.com/transaction/${hash}`
-        })
+      } catch (error) {
+        console.log(JSON.stringify(error))
       }
-      isLoading.value = false
-      shutdown();
 
   } catch (error) {
     isLoading.value = false
     const n4 = notification.error({
-      title: `Something went wrong`,
+      title: `Something went wrong?`,
       content: JSON.stringify(JSON.stringify(error))
     })
-    n4.destroyAll()
+    // n4.destroyAll()
   }
 
 }

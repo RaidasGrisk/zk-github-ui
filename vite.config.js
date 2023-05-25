@@ -33,9 +33,9 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  build: { target: "es2020" },
+  build: { target: "es2022" },
   optimizeDeps: {
-    esbuildOptions: { target: "es2020", supported: { bigint: true } },
+    esbuildOptions: { target: "es2022", supported: { bigint: true } },
   },
 
 })

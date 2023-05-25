@@ -53,7 +53,7 @@ const getData = async () => {
 
   // config
   const url = 'https://berkeley.graphql.minaexplorer.com/'
-  const publicKey = 'B62qmQfEB46A4n9xhX9wnQo3PcA32LRxuLongzpsahL2gFHXxC9yRuh'
+  const publicKey = 'B62qq1tktxLsPAvL3QytnyqMCnUvn9NrUuXGJgPGAhQUacdKzupE2Kp'
 
   // API request
   const response = await fetch(url, {
