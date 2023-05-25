@@ -145,7 +145,7 @@ const doTheZkProof = async () => {
           transaction: tx.toJSON(),
           feePayer: {
             fee: '',
-            memo: 'zk-mina-github.vercel.app',
+            memo: 'zk-mina-github',
           },
         });
         console.log('TX hash: ', hash)
