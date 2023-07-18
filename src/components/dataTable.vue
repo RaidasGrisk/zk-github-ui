@@ -53,7 +53,7 @@ const getData = async () => {
 
   // config
   const url = 'https://berkeley.graphql.minaexplorer.com/'
-  const publicKey = 'B62qq1tktxLsPAvL3QytnyqMCnUvn9NrUuXGJgPGAhQUacdKzupE2Kp'
+  const publicKey = 'B62qpwqit1MQXxe3qTc92jBh4Cuv5KV5Z3RJPaSCYPFvyR4xzf6U51Q'
 
   // API request
   const response = await fetch(url, {
@@ -64,7 +64,7 @@ const getData = async () => {
     body: JSON.stringify({
       query: `
       query MyQuery {
-        zkapps(query: {zkappCommand: {accountUpdates: {body: {publicKey: \"${publicKey}"\}}}}) {
+        zkapps(query: {zkappCommand: {accountUpdates: {body: {publicKey: \"${publicKey}"\}}}, failureReason_exists: false}) {
           hash
           blockHeight
           dateTime

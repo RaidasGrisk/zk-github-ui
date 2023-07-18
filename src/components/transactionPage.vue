@@ -8,7 +8,7 @@ onMounted(async () => {
 })
 
 // constants
-const zkAppAddress = 'B62qq1tktxLsPAvL3QytnyqMCnUvn9NrUuXGJgPGAhQUacdKzupE2Kp'
+const zkAppAddress = 'B62qpwqit1MQXxe3qTc92jBh4Cuv5KV5Z3RJPaSCYPFvyR4xzf6U51Q'
 const url = 'https://proxy.berkeley.minaexplorer.com/graphql'
 
 // storage refs
