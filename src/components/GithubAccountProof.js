@@ -26,8 +26,8 @@ export class GithubAccountProof extends SmartContract {
             editState: Permissions.proofOrSignature(),
         });
     }
-    init(zkappKey) {
-        super.init(zkappKey);
+    init() {
+        super.init();
         this.oraclePublicKey.set(PublicKey.fromBase58(ORACLE_PUBLIC_KEY));
         // why do we need this?
         // It should probably be used if we want to edit the
