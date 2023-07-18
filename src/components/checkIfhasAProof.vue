@@ -24,7 +24,7 @@ const checkAddress = async (zkAppAddress, publicKey) => {
     body: JSON.stringify({
       query: `
       query MyQuery {
-        zkapps(query: {zkappCommand: {feePayer: {body: {publicKey: \"${publicKey}"\}}, accountUpdates: {body: {publicKey: \"${zkAppAddress}"\}}}}) {
+        zkapps(query: {zkappCommand: {feePayer: {body: {publicKey: \"${publicKey}"\}}, accountUpdates: {body: {publicKey: \"${zkAppAddress}"\}}}, failureReason_exists: false}) {
           hash
           blockHeight
           dateTime
